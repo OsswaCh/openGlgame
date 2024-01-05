@@ -1,13 +1,15 @@
-#include <D:/code/openGLgame/engine/headerFiles/OGL3D/game/OGame.h>
-#include <D:/code/openGLgame/engine/headerFiles/OGL3D/window/OWindow.h>
+#include "../../../headerFiles/OGL3D/game/OGame.h"
+#include "../../../headerFiles/OGL3D/window/OWindow.h"
 #include <windows.h>
 
 OGame::OGame()
 {
+    m_window = new OWindow();
 }
 
 OGame::~OGame()
 {
+    delete m_window;
 }
 
 void OGame::run()
@@ -15,7 +17,7 @@ void OGame::run()
     MSG msg;
     while (m_isRunning)
     {
-        if (PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             // if there is a messa the peekmessage function will return true
             TranslateMessage(&msg);

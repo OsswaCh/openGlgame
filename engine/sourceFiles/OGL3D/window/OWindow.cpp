@@ -1,4 +1,4 @@
-#include <OWindow.h>
+#include "../../../headerFiles/OGL3D/window/OWindow.h"
 #include <windows.h>
 #include <assert.h>
 

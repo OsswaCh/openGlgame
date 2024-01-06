@@ -5,10 +5,12 @@
 OWindow::OWindow()
 {
 
-    WNDCLASSEX wc = {};               // This line initializes an instance of the WNDCLASSEX structure named wc to all zeros.
-    wc.cbSize = sizeof(WNDCLASSEX);   // sets the cbSize member of the WNDCLASSEX structure wc to the size of the WNDCLASSEX structure itself
-    wc.lpszClassName = L"OG3DWindow"; // The lpszClassName member is where you specify the unique name by which the window class will be known.
-    wc.lpfnWndProc = DefWindowProc;   // The lpfnWndProc member is a pointer to the window procedure that you want to associate with this window class.
+    WNDCLASSEX wc = {};             // This line initializes an instance of the WNDCLASSEX structure named wc to all zeros.
+    wc.cbSize = sizeof(WNDCLASSEX); // sets the cbSize member of the WNDCLASSEX structure wc to the size of the WNDCLASSEX structure itself
+
+    wc.lpszClassName = TEXT("OG3DWindow");
+    // wc.lpszClassName = L"OG3DWindow"; // The lpszClassName member is where you specify the unique name by which the window class will be known.
+    wc.lpfnWndProc = DefWindowProc; // The lpfnWndProc member is a pointer to the window procedure that you want to associate with this window class.
 
     // we need to register this class in order to let the operating system know about it and use it
 
@@ -18,7 +20,7 @@ OWindow::OWindow()
     RECT rc = {0, 0, 1024, 768};                                           // The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.
     AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false); // The AdjustWindowRect function takes a pointer to a RECT structure and a window style as its parameters. It returns a RECT structure with the coordinates of the window adjusted to account for the window style.
 
-    m_handle = CreateWindowEx(NULL, L"OG3DWindow3", L"PardCode | openGL 3d game", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, NULL, NULL);
+    m_handle = CreateWindowExW(0, L"OG3DWindow", L"Osswa's openGL 3d game", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, NULL, NULL);
 
     assert(m_handle);
 

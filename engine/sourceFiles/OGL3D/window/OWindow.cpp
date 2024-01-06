@@ -24,6 +24,9 @@ OWindow::OWindow()
 
     assert(m_handle);
 
+    // to store the old window instance pointer in a secific data structure
+    SetWindowLongPtr((HWND)m_handle, GWLP_USERDATA, (LONG_PTR)this);
+
     ShowWindow((HWND)m_handle, SW_SHOW); // The ShowWindow function takes a handle to a window and a show command as its parameters. It returns a Boolean value indicating success or failure. The show command can be one of the following values:
     UpdateWindow((HWND)m_handle);
 }
@@ -32,4 +35,31 @@ OWindow::~OWindow()
 {
 
     DestroyWindow((HWND)m_handle);
+}
+
+bool OWindow::isClosed()
+{
+    return !m_handle;
+}
+
+void OWindow::onDestroy()
+{
+    m_handle = nullptr;
+}
+
+// to terminate the program when we close the window
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg)
+    {
+    case WM_DESTROY:
+    {
+        OWindow *window = (OWindow *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+        window->onDestroy();
+        break;
+    }
+    default:
+        return DefWindowProc(hwnd, msg, wParam, lParam); // returns a message-specific result value.
+    }
+    return 0;
 }

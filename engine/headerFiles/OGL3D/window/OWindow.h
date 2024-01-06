@@ -9,4 +9,7 @@ private:
 public:
     OWindow();
     ~OWindow();
+
+    void onDestroy();
+    bool isClosed();
 };

@@ -4,12 +4,11 @@
 
 OGame::OGame()
 {
-    m_window = new OWindow();
+    m_window = std::unique_ptr<OWindow>(new OWindow());
 }
 
 OGame::~OGame()
 {
-    delete m_window;
 }
 
 void OGame::run()

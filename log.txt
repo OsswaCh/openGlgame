@@ -43,6 +43,10 @@ The lpszClassName member of the WNDCLASSEX structure (wc) is where you specify t
 
 wc.lpfnWndProc = DefWindowProc;The lpfnWndProc member of the WNDCLASSEX structure (wc) is a function pointer that represents the address of the window procedure associated with this window class. The window procedure (WndProc) is a callback function responsible for processing messages sent to windows of this class. In this line, DefWindowProc is a default window procedure provided by the Windows API. When lpfnWndProc is set to DefWindowProc, it signifies that the default window procedure should be used for handling messages not explicitly handled by a custom window procedure. DefWindowProc provides default message processing behavior for various messages and ensures proper handling of unhandled messages.
 
+
+void OGame::run() :
+
+
 PeekMessage(&msg, NULL, NULL, NULL, PM_REMOVE)
 PeekMessage checks the message queue for a pending message that corresponds to the specified criteria.
 The PM_REMOVE flag indicates that the message should be removed from the queue after being retrieved.
@@ -59,4 +63,35 @@ The window procedure is responsible for handling various types of messages, such
 
 LRESULT CALLBACK WndProc function: 
     The WndProc function is associated with a window class and is called automatically by the operating system in response to window messages that the window class receives.
-    
+   
+   
+    LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam):
+    LRESULT is the return type, indicating the result of message processing.
+    CALLBACK specifies the calling convention for the function.
+    WndProc is the name of the function.
+    HWND hwnd is the handle to the window the message is directed to.
+    UINT msg is the message code indicating the type of message received.
+    WPARAM wParam and LPARAM lParam are additional parameters accompanying the message.
+
+
+
+    The switch statement within the function is used to handle different types of messages (msg) sent to the window:
+    case WM_DESTROY:: This case is executed when the window receives a WM_DESTROY message, which occurs when the window is being destroyed. In this case:
+    GetWindowLongPtr(hwnd, GWLP_USERDATA) retrieves the OWindow* pointer stored as user data associated with the window (hwnd).
+    case WM_CLOSE:: This case is executed when the window receives a WM_CLOSE message, which is typically triggered when the user attempts to close the window (e.g., by clicking the close button on the window). In this case:
+    PostQuitMessage(0) posts a quit message to the application's message queue, indicating that the application should terminate. This message will be picked up by the application's message loop, causing it to exit.
+
+
+
+
+smart pointers:
+    #include <memory>
+    std::unique_ptr<OWindow> m_window;
+    m_window = std::unique_ptr<OWindow>(new OWindow());
+
+        - they manage the memory of dynamically allocated objects in a safer and more convenient way compared to raw pointers. They help prevent memory leaks and undefined behavior caused by manual memory management.
+        - There are three main types of smart pointers in C++:
+            1) unique_ptr: This pointer "owns" the object it points to. Only one unique_ptr can point to a particular object. When the unique_ptr goes out of scope or is explicitly reset, it automatically deallocates the memory for the object it owns.
+            2) std::shared_ptr: This pointer allows multiple pointers to share ownership of an object. It keeps track of the number of shared_ptr instances pointing to the same object. When the last shared_ptr pointing to the object goes out of scope or is reset, it deallocates the memory.
+            3) std::weak_ptr: This pointer is used in conjunction with std::shared_ptr to break potential cyclic references. It allows you to observe an object without affecting its lifetime. It doesn't contribute to the reference count of the object and can be converted to shared_ptr when needed.
+

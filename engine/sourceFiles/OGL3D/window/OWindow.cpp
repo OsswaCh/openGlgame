@@ -37,24 +37,6 @@ OWindow::~OWindow()
     DestroyWindow((HWND)m_handle);
 }
 
-// bool OWindow::isClosed()
-// {
-//     // return !m_handle;
-//     if (m_handle == nullptr)
-//     {
-//         return true;
-//     }
-//     else
-//     {
-//         return false;
-//     }
-// }
-
-// void OWindow::onDestroy()
-// {
-//     m_handle = nullptr;
-// }
-
 // to terminate the program when we close the window
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {

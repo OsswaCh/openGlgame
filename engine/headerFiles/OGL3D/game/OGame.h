@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 class OWindow;
 
@@ -14,5 +15,6 @@ public:
 
 protected:
     bool m_isRunning = true;
-    OWindow *m_window = nullptr; // pointer to the window class
+    std::unique_ptr<OWindow> m_window; // smart pointer to the window class, when the destructor is called it automatically deletes the object
+                                       //  also avoids memory leaks
 };

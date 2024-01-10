@@ -33,15 +33,34 @@
 \subtitle{Headers}assert.h is a header file in the C programming language that provides the assert macro used for debugging and error checking during program development. It's used to verify assumptions made in the program's logic and halt the program's execution if an assertion fails.//windows.h is a header file in the Microsoft Windows operating system environment that contains declarations, definitions, and function prototypes for the Windows API (Application Programming Interface).
 \subtitle{Notes about the code}
 
-wc.cbSize = sizeof(WNDCLASSEX);
 
-This line sets the cbSize member of the WNDCLASSEX structure (wc) to the size of the WNDCLASSEX structure itself. The cbSize member specifies the size, in bytes, of the WNDCLASSEX structure. By assigning it the value returned by sizeof(WNDCLASSEX), you ensure that the WNDCLASSEX structure is correctly sized and compatible with the Windows API functions that use this structure. It helps the Windows operating system identify the version of the structure being used, enabling proper interaction with the system.
+OWindow::OWindow()
 
-wc.lpszClassName = L"OG3DWindow";
+    wc.cbSize = sizeof(WNDCLASSEX);
 
-The lpszClassName member of the WNDCLASSEX structure (wc) is where you specify the unique name by which the window class will be known. This member holds a pointer (of type LPCWSTR when using L before the string literal) to a null-terminated string that serves as the identifier for the window class. The specified class name is used when creating windows of this class, allowing the system to identify and associate windows with the appropriate class attributes and behavior.
+    This line sets the cbSize member of the WNDCLASSEX structure (wc) to the size of the WNDCLASSEX structure itself. The cbSize member specifies the size, in bytes, of the WNDCLASSEX structure. By assigning it the value returned by sizeof(WNDCLASSEX), you ensure that the WNDCLASSEX structure is correctly sized and compatible with the Windows API functions that use this structure. It helps the Windows operating system identify the version of the structure being used, enabling proper interaction with the system.
 
-wc.lpfnWndProc = DefWindowProc;The lpfnWndProc member of the WNDCLASSEX structure (wc) is a function pointer that represents the address of the window procedure associated with this window class. The window procedure (WndProc) is a callback function responsible for processing messages sent to windows of this class. In this line, DefWindowProc is a default window procedure provided by the Windows API. When lpfnWndProc is set to DefWindowProc, it signifies that the default window procedure should be used for handling messages not explicitly handled by a custom window procedure. DefWindowProc provides default message processing behavior for various messages and ensures proper handling of unhandled messages.
+    wc.lpszClassName = L"OG3DWindow";
+
+    The lpszClassName member of the WNDCLASSEX structure (wc) is where you specify the unique name by which the window class will be known. This member holds a pointer (of type LPCWSTR when using L before the string literal) to a null-terminated string that serves as the identifier for the window class. The specified class name is used when creating windows of this class, allowing the system to identify and associate windows with the appropriate class attributes and behavior.
+
+    wc.lpfnWndProc = DefWindowProc;The lpfnWndProc member of the WNDCLASSEX structure (wc) is a function pointer that represents the address of the window procedure associated with this window class. The window procedure (WndProc) is a callback function responsible for processing messages sent to windows of this class. In this line, DefWindowProc is a default window procedure provided by the Windows API. When lpfnWndProc is set to DefWindowProc, it signifies that the default window procedure should be used for handling messages not explicitly handled by a custom window procedure. DefWindowProc provides default message processing behavior for various messages and ensures proper handling of unhandled messages.
+
+    m_handle = CreateWindowExW(0, MAKEINTATOM(classID), L"Osswa's openGL 3d game", WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, NULL, NULL);
+        MAKEINTATOM is used to convert the integer classID into an atom that will represent the class name in this window creation function.
+         "atom" refers to a unique integer identifier associated with certain objects or resources, such as window classes, window procedures, icons, cursors, and more.
+            Global Atoms:
+
+        These are identified by a unique integer value within the system and are accessible by all processes running in the operating system.
+        Global atoms are often used to define class names for windows, which are used to register and create windows of a specific class.
+        
+            Local Atoms:
+
+        These are specific to a single instance of an application and are identified by a unique integer within that instance.
+        Local atoms are typically used for internal purposes within a single application and aren't shared across different processes.
+
+        In conclusion: class names for windows are usually represented by atoms. 
+
 
 
 void OGame::run() :

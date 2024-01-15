@@ -1,10 +1,12 @@
 #include "../../../headerFiles/OGL3D/game/OGame.h"
 #include "../../../headerFiles/OGL3D/window/OWindow.h"
+#include "../../../headerFiles/OGL3D/graphics/OGraphEng.h"
 #include <windows.h>
 
 OGame::OGame()
 {
-    m_window = std::unique_ptr<OWindow>(new OWindow());
+    m_graphEng = std::unique_ptr<OGraphEng>();
+    m_window = std::unique_ptr<OWindow>();
 }
 
 OGame::~OGame()

@@ -1,6 +1,8 @@
 #include "../../../headerFiles/OGL3D/window/OWindow.h"
 #include <windows.h>
 #include <assert.h>
+#include "gl.c"
+#include "wgl.c"
 
 // to terminate the program when we close the window
 // this has to be before the window procedure snn it wont be recognized
@@ -44,7 +46,7 @@ OWindow::OWindow()
     RECT rc = {0, 0, 1024, 768};                                           // The RECT structure defines the coordinates of the upper-left and lower-right corners of a rectangle.
     AdjustWindowRect(&rc, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, false); // The AdjustWindowRect function takes a pointer to a RECT structure and a window style as its parameters. It returns a RECT structure with the coordinates of the window adjusted to account for the window style.
 
-    LPCSTR winName = "PardCode | OpenGL 3D Game"; // Convert winName to LPCWSTR
+    LPCSTR winName = "Osswa | OpenGL 3D Game"; // Convert winName to LPCWSTR
 
     m_handle = CreateWindowEx(0, MAKEINTATOM(classID), winName, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, NULL, NULL);
     // This shows an error but it actually works, ignore it
@@ -55,6 +57,12 @@ OWindow::OWindow()
 
     ShowWindow((HWND)m_handle, SW_SHOW); // The ShowWindow function takes a handle to a window and a show command as its parameters. It returns a Boolean value indicating success or failure. The show command can be one of the following values:
     UpdateWindow((HWND)m_handle);
+
+    // creating opengl render context
+
+    auto hdc = GetDC((HWND)m_handle);
+
+    // usign opengl functions to choose the pixel format
 }
 
 OWindow::~OWindow()

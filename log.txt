@@ -114,3 +114,23 @@ smart pointers:
             2) std::shared_ptr: This pointer allows multiple pointers to share ownership of an object. It keeps track of the number of shared_ptr instances pointing to the same object. When the last shared_ptr pointing to the object goes out of scope or is reset, it deallocates the memory.
             3) std::weak_ptr: This pointer is used in conjunction with std::shared_ptr to break potential cyclic references. It allows you to observe an object without affecting its lifetime. It doesn't contribute to the reference count of the object and can be converted to shared_ptr when needed.
 
+
+
+OGraphEng::OGraphEng()
+
+    we create a dummy window; A dummy window procedure is used in certain scenarios where you need to create a window but don't intend to handle any messages for that window. This is often the case when setting up an OpenGL context and pixel format, as you demonstrated in your code.
+
+    Device Context and Pixel Format Descriptor Setup:
+        HDC DummyDc = GetDC(dummyWind) :  retrieves a device context (DC) for the specified window. A device context, often abbreviated as DC, is a Windows GDI (Graphics Device Interface) object that represents a connection between the application and the output device. It serves as a bridge between the application's drawing functions and the physical output device, such as a display screen, printer, or other graphical output devices.
+        
+        Setting up the pfd structure:
+
+            pfd.nSize: Specifies the size of the structure. Set to sizeof(PIXELFORMATDESCRIPTOR) to indicate the size of the structure.
+            pfd.nVersion: Specifies the version of the structure. Set to 1.
+            pfd.iPixelType: Specifies the pixel type. PFD_TYPE_RGBA indicates a 32-bit color pixel format (red, green, blue, and alpha).
+            pfd.dwFlags: Specifies various options. PFD_SUPPORT_OPENGL, PFD_DRAW_TO_WINDOW, and PFD_DOUBLEBUFFER indicate support for OpenGL, drawing to a window, and double buffering, respectively.
+            pfd.cColorBits: Specifies the number of color bitplanes in the color buffer. Set to 32 for 32-bit color.
+            pfd.cAlphaBits, pfd.cDepthBits, pfd.cStencilBits: Specify the number of alpha, depth, and stencil bitplanes, respectively.
+
+                rq: a stencil buffer is a type of buffer used in conjunction with the depth buffer for various rendering and image manipulation techniques. The stencil buffer is typically an additional 8-bit or more bitplane associated with each pixel in the frame buffer.
+                    ( "buffer" generally refers to a region of memory used to temporarily store data.)

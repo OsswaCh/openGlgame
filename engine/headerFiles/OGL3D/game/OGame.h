@@ -2,7 +2,7 @@
 #include <memory>
 
 class OWindow;
-
+class OGraphEng;
 class OGame
 {
 private:
@@ -17,4 +17,6 @@ protected:
     bool m_isRunning = true;
     std::unique_ptr<OWindow> m_window; // smart pointer to the window class, when the destructor is called it automatically deletes the object
                                        //  also avoids memory leaks
+
+    std::unique_ptr<OGraphEng> m_graphEng;
 };

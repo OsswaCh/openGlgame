@@ -6,15 +6,21 @@
 			"label": "C/C++: g++.exe build active file",
 			"command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
 			"args": [
-				"-g",
 				"-std=c++17",
-				"-I./include",
-				"-L./lib",
-				"src/\\*.cpp",
-				"src/glad.c",
-				"-lglfw3dll",
+				"-fdiagnostics-color=always",
+				"-Wall",
+				"-g",
+				"-I${workspaceFolder}/include",
+				"-L${workspaceFolder}/lib",
+				"${workspaceFolder}/src/KHR/khrplatform.h",
+				"${workspaceFolder}/glad/include/gl.h",
+				"${workspaceFolder}/glad/src/gl.c",
+				"${workspaceFolder}/src/*.cpp",
+				"${workspaceFolder}/lib/libglfw.3.dylib",
 				"-o",
-				"${workspaceFolder}/myprogram.exe"
+				"${workspaceFolder}/main.exe",
+				"-framework",
+				"OpenGL"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
